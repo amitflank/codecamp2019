@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <v-app dark>
+            <v-navigation-drawer app v-bind:class="colors[2]">
+                <v-card></v-card>
+                <p>Use the stuff to find what you don't need</p>
+            </v-navigation-drawer>
+
+            <v-app-bar app v-bind:class="colors[0]">
+                <h1>MUSIFY</h1>
+            </v-app-bar>
+
+            <!-- Sizes your content based upon application components -->
+            <v-content v-bind:class="colors[1]">
+
+                <!-- Provides the application the proper gutter -->
+                <v-container fluid>
+                    <v-card elevation="4" v-bind:class="colors[2]">
+                        <v-row align="center">
+                            <v-spacer></v-spacer>
+                            <v-col class="d-flex" cols="2">
+                                <v-select label="Tatum" v-model="tatum" :items="tatums" outlined></v-select>
+                            </v-col>
+
+                            <v-col class="d-flex" cols="2">
+                                <v-select label="Time Signature" v-model="timeSig" :items="tatums" outlined></v-select>
+                            </v-col>
+
+                            <v-col class="d-flex" cols="2">
+                                <v-select label="Number of Beats" v-model="beats" :items="tatums" outlined></v-select>
+                            </v-col>
+
+                            <v-col class="d-flex" cols="3">
+                                <v-range-slider label="Duration" v-model="duration" 
+                                min=30 max=600
+                                color="black" track-color="grey" thumb-color="black"></v-range-slider>
+                                <p>?</p>
+                            </v-col>
+                            <v-spacer></v-spacer>
+                        </v-row>
+                    </v-card>
+
+                    <!-- 3D plot -->
+                    <v-card>
+                        <h2>Tatum: {{tatum}}</h2>
+                        <h2>Time Signature: {{timeSig}}</h2>
+                        <h2>Number of Beats: {{beats}}</h2>
+                        <h2>Duration: {{formatTime}}</h2>
+                    </v-card>
+                </v-container>
+            </v-content>
+
+            <v-footer app elevation="10" v-bind:class="colors[0]">
+                <p>made at code camp or something 2019 &copy;</p>
+            </v-footer>
+        </v-app>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
