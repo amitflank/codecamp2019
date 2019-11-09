@@ -7,10 +7,25 @@ var app = new Vue({
     vuetify: new Vuetify({}),
     data: {
         colors: ["blue-grey lighten-2", "blue-grey lighten-4", "grey lighten-4"],
-        tatums: [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096],
-        loudness: null,
-        tempo: null,
-        duration: [120, 240]
+        loudness: 10,
+        tempo: 25,
+        duration: 180,
+
+    },
+
+    created() {
+        $.ajax({
+            url: 'http://localhost:5000/initialize',
+            type: 'GET',
+            success: function (response) {
+                response.json().then(function (data) {
+                    graph(data)
+                })
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
     },
 
     methods: {
@@ -20,7 +35,7 @@ var app = new Vue({
             console.log(`Duration: ${this.duration}`)
 
             $.ajax({
-                url: 'http://localhost:5000/test',
+                url: 'http://localhost:5000/find_song',
                 data: $('form').serialize(),
                 type: 'POST',
                 success: function (response) {
@@ -32,39 +47,18 @@ var app = new Vue({
                     console.log(error);
                 }
             });
-            // fetch('/smart_Search', {
-            //     method: "POST",
-            //     headers: {
-            //         "Content-type": "application/json"
-            //     },
-            //     body: JSON.stringify({
-            //         loudness: app.loudness,
-            //         tempo: app.tempo,
-            //         duration: app.duration,
-            //     })
-            // }).then(function (res) {
-            //     res.json().then(function (data) {
-            //         console.log(data)
-            //     });
-            // });
         }
     },
 
     computed: {
         formatTime: function () {
-            var lowMin = Math.floor(this.duration[0] / 60)
-            var lowSec = this.duration[0] % 60
-            lowSec += 100
-            var lowSecString = "" + lowSec
-            lowSecString = lowSecString.substring(1, 3)
+            var min = Math.floor(this.duration / 60)
+            var sec = this.duration % 60
+            sec += 100
+            var secString = "" + sec
+            secString = secString.substring(1, 3)
 
-            var highMin = Math.floor(this.duration[1] / 60)
-            var highSec = this.duration[1] % 60
-            highSec += 100
-            var highSecString = "" + highSec
-            highSecString = highSecString.substring(1, 3)
-
-            return `${lowMin}:${lowSecString} - ${highMin}:${highSecString}`
+            return `${min}:${secString}`
         }
     }
 })
