@@ -1,34 +1,32 @@
 // https://plot.ly/javascript/reference/#scatter3d
 
 // can scale marker size if desired
+var data
+
 
 function graph(data) {
-
-    // var randomData = [
-    //     [3, 2, 6, 1],
-    //     [1, 7, 9, 4],
-    //     [4, 1, 5, 2],
-    //     [2, 20, 11, 25],
-    //     [2, 3, 15, 6]
-    // ]
     
     var duration = []
     var loudness = []
     var tempo = []
     var hotness = []
+    var titles = []
+    var artists = []
     
-    data.forEach(song => {
-        duration.push(song[0])
-        loudness.push(song[1])
-        tempo.push(song[2])
-        hotness.push(song[3])
+    Object.keys(data).forEach(key => {
+        duration.push(data[key]['duration'])
+        loudness.push(data[key]['loudness'])
+        tempo.push(data[key]['tempo'])
+        hotness.push(data[key]['hotttnesss'])
+        titles.push(data[key]['title'], data[key]['artist'])
+        artists.push(data[key]['artist'])
     });
     
-    var data = [{
+    data = [{
         x: duration,
         y: loudness,
         z: tempo,
-        mode: 'markers+text',
+        mode: 'markers',
         type: 'scatter3d',
         marker: {
             color: "rgb(250, 100, 150)",
@@ -36,12 +34,13 @@ function graph(data) {
             // colorscale: `[[0, 'rgb(0,0,100)'], [1, 'rgb(255,0,0)']]`,
             size: hotness,
             sizemin: 10,
-            sizeref: 2,
+            sizeref: 0.05,
         },
-        text: ["A", "B", "C", "D", "E"],
+        text: titles,
+        customdata: artists,
         hovertemplate:
-            "%{text}" +
-            "<br>Duration: %{x}"
+            "%{text}: " + "%{customdata}" +
+            "<br>Hotness: %{marker.size}"
         ,
     }];
     
@@ -89,7 +88,4 @@ function graph(data) {
     };
     
     Plotly.newPlot('myDiv', data, layout);
-    
-    
-
 }

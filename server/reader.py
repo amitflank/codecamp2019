@@ -2,6 +2,7 @@ import pandas as pd
 import json
 import os
 import hdf5_getters
+import math
 
 class Song():
 
@@ -25,7 +26,7 @@ def create_songs():
     num_songs = hdf5_getters.get_num_songs(h5)
     song_list = []
 
-    for i in range(500):
+    for i in range(5000):
         duration = hdf5_getters.get_duration(h5, i)
         tempo = hdf5_getters.get_tempo(h5, i)
         loudness = hdf5_getters.get_loudness(h5, i)
@@ -33,6 +34,8 @@ def create_songs():
         artist = hdf5_getters.get_artist_name(h5, i)
         title = hdf5_getters.get_title(h5, i)
         hotttnesss = hdf5_getters.get_song_hotttnesss(h5, i)
+        if math.isnan(hotttnesss):
+            hotttnesss = 0.0
         song_list.append(Song(loudness, duration, danceability, tempo, title, hotttnesss, artist))
 
     h5.close()

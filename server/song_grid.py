@@ -26,7 +26,7 @@ def binary_search(arr, val, start, end, axis):
     if start > end:
         return start
 
-    mid = floor((start+end) / 2)
+    mid = int(floor((start+end) / 2))
 
     if arr[mid].params[axis] < val.params[axis]:
         return binary_search(arr, val, mid+1, end, axis)
@@ -52,7 +52,7 @@ def binary_search2(arr, val, start, end, axis):
     if start > end:
         return start
 
-    mid = floor((start+end) / 2)
+    mid = int(floor((start+end) / 2))
 
     if arr[mid].params[axis]  < val:
         return binary_search2(arr, val, mid+1, end, axis)

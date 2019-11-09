@@ -14,18 +14,28 @@ var app = new Vue({
     },
 
     created() {
-        $.ajax({
-            url: 'http://localhost:5000/initialize',
-            type: 'GET',
-            success: function (response) {
-                response.json().then(function (data) {
-                    graph(data)
-                })
+        fetch('http://localhost:5000/initialize', {
+            method: "GET",
+            headers: {
+                "Content-type": "application/json"
             },
-            error: function (error) {
-                console.log(error);
-            }
+        }).then(function (response) {
+            response.json().then(function (data) {
+                console.log(data)
+                graph(data)
+            })
         });
+        // $.ajax({
+        //     url: 'http://localhost:5000/initialize',
+        //     type: 'GET',
+        //     success: function (response) {
+        //         console.log("porn")
+        //         response.json().then(function (data) {
+        //             console.log(data)
+        //             graph(data)
+        //         })
+        //     },
+        // });
     },
 
     methods: {
@@ -43,9 +53,6 @@ var app = new Vue({
                         console.log(data)
                     })
                 },
-                error: function (error) {
-                    console.log(error);
-                }
             });
         }
     },
