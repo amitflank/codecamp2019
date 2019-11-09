@@ -137,7 +137,6 @@ class Song_Grid():
         return math.sqrt(sum_diff)
 
 
-    @app.route('/smart_search', methods=['POST'])
 
     def smart_search(self, pos):
         closest_idx = {}
