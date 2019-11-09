@@ -5,19 +5,16 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet" type="text/css">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 </head>
 
 <body>
     <div id="app" v-cloak>
-        <v-app dark>
-            <v-navigation-drawer app v-bind:class="colors[2]">
-                <v-card></v-card>
-                <p>Use the stuff to find what you don't need</p>
-            </v-navigation-drawer>
+        <v-app>
 
             <v-app-bar app v-bind:class="colors[0]">
-                <h1>MUSIFY</h1>
+                <h1 class="pl-4">MUSIFY</h1>
             </v-app-bar>
 
             <!-- Sizes your content based upon application components -->
@@ -25,50 +22,70 @@
 
                 <!-- Provides the application the proper gutter -->
                 <v-container fluid>
-                    <v-card elevation="4" v-bind:class="colors[2]">
-                        <v-row align="center">
-                            <v-spacer></v-spacer>
-                            <v-col class="d-flex" cols="2">
-                                <v-select label="Tatum" v-model="tatum" :items="tatums" outlined></v-select>
-                            </v-col>
+                    <v-row>
 
-                            <v-col class="d-flex" cols="2">
-                                <v-select label="Time Signature" v-model="timeSig" :items="tatums" outlined></v-select>
-                            </v-col>
+                        <!-- 3D plot -->
+                        <v-col cols="7">
+                            <div id="myDiv"></div>
+                        </v-col>
 
-                            <v-col class="d-flex" cols="2">
-                                <v-select label="Number of Beats" v-model="beats" :items="tatums" outlined></v-select>
-                            </v-col>
+                        <v-col cols="5">
+                            <v-card class="pa-4" elevation="4" v-bind:class="colors[2]">
+                                <v-spacer></v-spacer>
+                                <v-row>
+                                    <v-select label="Tempo" v-model="tempo" :items="tatums" outlined dense></v-select>
+                                </v-row>
 
-                            <v-col class="d-flex" cols="3">
-                                <v-range-slider label="Duration" v-model="duration" 
-                                min=30 max=600
-                                color="black" track-color="grey" thumb-color="black"></v-range-slider>
-                                <p>?</p>
-                            </v-col>
-                            <v-spacer></v-spacer>
-                        </v-row>
-                    </v-card>
+                                <v-row>
+                                    <v-select label="Loudness" v-model="loudness" :items="tatums" outlined dense>
+                                    </v-select>
+                                </v-row>
 
-                    <!-- 3D plot -->
-                    <v-card>
-                        <h2>Tatum: {{tatum}}</h2>
-                        <h2>Time Signature: {{timeSig}}</h2>
-                        <h2>Number of Beats: {{beats}}</h2>
-                        <h2>Duration: {{formatTime}}</h2>
-                    </v-card>
+                                <v-row>
+                                    <v-range-slider v-model="duration" min=30 max=600 color="black" track-color="grey"
+                                        thumb-color="black">
+                                    </v-range-slider>
+                                    <h2>Duration: {{formatTime}}</h2>
+                                </v-row>
+
+                                <v-row cols="1">
+                                    <v-flex>
+                                        <v-btn @click="sendQuery()" block v-bind:color="colors[1]">GO</v-btn>
+                                    </v-flex>
+                                </v-row>
+                                <v-spacer></v-spacer>
+                            </v-card>
+
+                            <!-- SELECTED SONG INFO -->
+                            <v-row align-content="end">
+                                <v-col cols="12">
+                                    <v-card>
+                                        <v-card-text>SONG NAME</v-card-text>
+                                    </v-card>
+                                </v-col>
+                            </v-row>
+
+                        </v-col>
+
+                    </v-row>
                 </v-container>
             </v-content>
 
             <v-footer app elevation="10" v-bind:class="colors[0]">
-                <p>made at code camp or something 2019 &copy;</p>
+                <v-flex>
+                    <p class="text-center">Made at code camp or something &copy; Sherk 2019</p>
+                </v-flex>
             </v-footer>
         </v-app>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="script.js"></script>
+    <script src="graph.js"></script>
 </body>
 
 </html>
