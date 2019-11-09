@@ -20,13 +20,15 @@ var app = new Vue({
             console.log(`Duration: ${this.duration}`)
 
             $.ajax({
-                url: 'http://localhost:5000/signUpUser',
+                url: 'http://localhost:5000/test',
                 data: $('form').serialize(),
                 type: 'POST',
-                success: function(response) {
-                    console.log(response);
+                success: function (response) {
+                    response.json().then(function (data) {
+                        console.log(data)
+                    })
                 },
-                error: function(error) {
+                error: function (error) {
                     console.log(error);
                 }
             });

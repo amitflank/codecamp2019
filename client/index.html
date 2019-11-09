@@ -32,21 +32,18 @@
                         <v-col cols="5">
                             <v-card class="pa-4" elevation="4" v-bind:class="colors[2]">
                                 <v-spacer></v-spacer>
-                                <v-row>
-                                    <v-select label="Tempo" v-model="tempo" :items="tatums" outlined dense></v-select>
-                                </v-row>
 
-                                <v-row>
-                                    <v-select label="Loudness" v-model="loudness" :items="tatums" outlined dense>
-                                    </v-select>
-                                </v-row>
-
-                                <v-row>
-                                    <v-range-slider v-model="duration" min=30 max=600 color="black" track-color="grey"
-                                        thumb-color="black">
-                                    </v-range-slider>
-                                    <h2>Duration: {{formatTime}}</h2>
-                                </v-row>
+                                <form>
+                                    Loudness<br>
+                                    <input v-model="loudness" type="number" name="loudness" value="0">
+                                    <br>
+                                    Tempo<br>
+                                    <input v-model="tempo" type="number" name="tempo" value="0">
+                                    <br>
+                                    Duration<br>
+                                    <input v-model="duration" type="number" name="loudness" value="0">
+                                    <br>
+                                </form>
 
                                 <v-row cols="1">
                                     <v-flex>
